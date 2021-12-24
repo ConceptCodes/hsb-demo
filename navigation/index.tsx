@@ -8,10 +8,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import {  Pressable } from 'react-native';
 import tw from 'twrnc';
 
-import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import FeedScreen from '../screens/Feed';
 import GroupsScreen from '../screens/Groups';
@@ -40,9 +38,6 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
     </Stack.Navigator>
   );
 }
@@ -56,33 +51,22 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: { marginLeft: 20, marginRight: 20, borderRadius: 50, padding: 10, marginBottom: 20, backgroundColor: 'orange'},
+      }}
       initialRouteName="Feed">
       <BottomTab.Screen
         name="Feed"
         component={FeedScreen}
         options={({ navigation }: RootTabScreenProps<'Feed'>) => ({
-          title: 'Feed',
           tabBarIcon: () => <TabBarIcon name="globe"  />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                style={tw`mr-10`}
-              />
-            </Pressable>
-          ),
         })}
       />
       <BottomTab.Screen
         name="Groups"
         component={GroupsScreen}
         options={{
-          title: 'Groups',
           tabBarIcon: () => <TabBarIcon name="comment" />,
         }}
       />
@@ -90,7 +74,6 @@ function BottomTabNavigator() {
         name="Search"
         component={SearchScreen}
         options={{
-          title: 'Search',
           tabBarIcon: () => <TabBarIcon name="search" />,
         }}
       />
@@ -98,7 +81,6 @@ function BottomTabNavigator() {
         name="Profile"
         component={ProfileScreen}
         options={{
-          title: 'Profile',
           tabBarIcon: () => <TabBarIcon name="user" />,
         }}
       />
@@ -112,5 +94,5 @@ function BottomTabNavigator() {
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
 }) {
-  return <FontAwesome size={30} style={tw`text-orange-500`} {...props} />;
+  return <FontAwesome size={30} style={tw`text-white`} {...props} />;
 }
