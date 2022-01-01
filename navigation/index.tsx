@@ -74,7 +74,6 @@ function BottomTabNavigator() {
           marginLeft: 20, 
           marginRight: 20, 
           borderRadius: 50, 
-          marginBottom: 20, 
           backgroundColor: '#1C2833'
         },
       }}

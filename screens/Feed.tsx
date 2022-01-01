@@ -1,11 +1,12 @@
 import React from 'react'
-import { View, Text, Image, TextInput } from 'react-native';
+import { View, ScrollView, Text, Image, TextInput } from 'react-native';
 import { RootTabScreenProps } from '../types';
 import tw from 'twrnc';
 import FeedCard from '../components/FeedCard'
 
 
 export default function FeedScreen({ navigation }: RootTabScreenProps<'Feed'>) {
+
   const [searchTerm, onChangeText] = React.useState("");
 
   return (
@@ -24,9 +25,10 @@ export default function FeedScreen({ navigation }: RootTabScreenProps<'Feed'>) {
           value={searchTerm}
         />
       </View>
-      <View style={tw`flex-col p-5 -translate-y-10`}>
+      <ScrollView style={tw`flex-col p-5 -translate-y-40`}>
         <FeedCard title="Abstracto#1234" creator="concept" bidPrice={12.3} image="https://via.placeholder.com/200" />
-      </View>
+        <FeedCard title="Abstracto#4321" creator="concept" bidPrice={10} image="https://via.placeholder.com/200" />
+      </ScrollView>
     </View>
   );
 }
