@@ -15,17 +15,21 @@ import FeedScreen from '../screens/Feed';
 import GroupsScreen from '../screens/Groups';
 import SearchScreen from '../screens/Search';
 import ProfileScreen from '../screens/Profile';
+import LoginScreen from '../screens/Login';
+import RegisterScreen from '../screens/Register';
+
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation() {
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}>
+    <NavigationContainer linking={LinkingConfiguration}>
+      {/* {(user != null) ? <RootNavigator /> : <AuthNavigator />} */}
       <RootNavigator />
     </NavigationContainer>
   );
 }
+
 
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
@@ -35,11 +39,24 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}
+    >
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
+}
+
+function AuthNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Auth" component={LoginScreen} options={{ title: 'Login'}} />
+      <Stack.Screen name="Auth" component={RegisterScreen} options={{ title: 'Login'}} />
+    </Stack.Navigator>
+  )
 }
 
 /**
@@ -53,36 +70,34 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarStyle: { marginLeft: 20, marginRight: 20, borderRadius: 50, padding: 10, marginBottom: 20, backgroundColor: 'orange'},
+        tabBarStyle: { 
+          marginLeft: 20, 
+          marginRight: 20, 
+          borderRadius: 50, 
+          marginBottom: 20, 
+          backgroundColor: '#1C2833'
+        },
       }}
       initialRouteName="Feed">
       <BottomTab.Screen
         name="Feed"
         component={FeedScreen}
-        options={({ navigation }: RootTabScreenProps<'Feed'>) => ({
-          tabBarIcon: () => <TabBarIcon name="globe"  />,
-        })}
+        options={{ tabBarIcon: () => <TabBarIcon name="globe"  /> }}
       />
       <BottomTab.Screen
         name="Groups"
         component={GroupsScreen}
-        options={{
-          tabBarIcon: () => <TabBarIcon name="comment" />,
-        }}
+        options={{ tabBarIcon: () => <TabBarIcon name="comment" /> }}
       />
       <BottomTab.Screen
         name="Search"
         component={SearchScreen}
-        options={{
-          tabBarIcon: () => <TabBarIcon name="search" />,
-        }}
+        options={{ tabBarIcon: () => <TabBarIcon name="search" /> }}
       />
       <BottomTab.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{
-          tabBarIcon: () => <TabBarIcon name="user" />,
-        }}
+        options={{ tabBarIcon: () => <TabBarIcon name="user" /> }}
       />
     </BottomTab.Navigator>
   );

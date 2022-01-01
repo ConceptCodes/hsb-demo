@@ -4,7 +4,6 @@ pragma solidity ^0.5.0;
 
 import "@openzeppelin/contracts/token/ERC777/ERC777.sol";
 
-
 /**
  * @title Simple777Token
  * @dev Very simple ERC777 Token example, where all tokens are pre-assigned to the creator.
