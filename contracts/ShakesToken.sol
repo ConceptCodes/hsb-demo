@@ -1,17 +1,13 @@
 // SPDX-License-Identifier: MIT
+
 pragma solidity 0.7.4;
 
-import "http://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.1-solc-0.7/contracts/token/ERC777/ERC777.sol";
-import "http://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.1-solc-0.7/contracts/token/ERC777/IERC777Sender.sol";
-import "http://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.1-solc-0.7/contracts/token/ERC777/IERC777Recipient.sol";
-import "http://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.1-solc-0.7/contracts/introspection/ERC1820Implementer.sol";
-import "http://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.1-solc-0.7/contracts/introspection/IERC1820Registry.sol";
+import "@openzeppelin/contracts/presets/ERC777PresetFixedSupply.sol";
 
-contract TestERC777 is ERC777 {
+contract ShakesToken is ERC777PresetFixedSupply {
+    uint256 private treasuryAddress;
+    uint256 private initialSupply = 2150000000;
     constructor(
-        uint256 initialSupply,
         address[] memory defaultOperators
-    ) ERC777("Shakes", "HSB", defaultOperators) {
-        _mint(msg.sender, initialSupply, "", "");
-    }
+    ) ERC777PresetFixedSupply("Shakes", "HSB", defaultOperators, initialSupply, treasuryAddress) { }
 }
