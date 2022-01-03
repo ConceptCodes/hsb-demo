@@ -26,8 +26,8 @@ export default function FeedScreen({ navigation }: RootTabScreenProps<'Feed'>) {
         />
       </View>
       <ScrollView style={tw`flex-col p-5 -translate-y-40`}>
-        <FeedCard title="Abstracto#1234" creator="concept" bidPrice={12.3} image="https://via.placeholder.com/200" />
-        <FeedCard title="Abstracto#4321" creator="concept" bidPrice={10} image="https://via.placeholder.com/200" />
+        <FeedCard title="Bet #1" creator="concept" bidPrice={12.3} image="https://via.placeholder.com/200" />
+        <FeedCard title="Bet #2" creator="concept" bidPrice={10} image="https://via.placeholder.com/200" />
       </ScrollView>
     </View>
   );

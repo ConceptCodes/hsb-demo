@@ -8,6 +8,8 @@ import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFractio
 import "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
 
 contract Admin is Governor, GovernorCompatibilityBravo, GovernorVotes, GovernorVotesQuorumFraction, GovernorTimelockControl {
+   uint256 public starterTokens = 500;
+   
     constructor(ERC20Votes _token, TimelockController _timelock)
         Governor("HSB Admin")
         GovernorVotes(_token)
@@ -15,12 +17,16 @@ contract Admin is Governor, GovernorCompatibilityBravo, GovernorVotes, GovernorV
         GovernorTimelockControl(_timelock)
     {}
 
+    /// @notice how long we can delay voting
+    /// @dev // 1 day, assuming block time is 13.4seconds
     function votingDelay() public pure override returns (uint256) {
-        return 6575; // 1 day, assuming block time is 13.4seconds
+        return 6575; 
     }
 
+    /// @notice how long we have to cast our vote 
+    /// @dev 1 week assuming block time is 13.4seconds
     function votingPeriod() public pure override returns (uint256) {
-        return 46027; // 1 week assuming block time is 13.4seconds
+        return 46027; 
     }
 
     function proposalThreshold() public pure override returns (uint256) {
@@ -95,5 +101,10 @@ contract Admin is Governor, GovernorCompatibilityBravo, GovernorVotes, GovernorV
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
+    }
+
+
+    function airdropTokens() public {
+
     }
 }

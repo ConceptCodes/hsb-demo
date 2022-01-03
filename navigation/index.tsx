@@ -11,6 +11,7 @@ import * as React from 'react';
 import tw from 'twrnc';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
+import BetModal from '../screens/BetModal';
 import FeedScreen from '../screens/Feed';
 import GroupsScreen from '../screens/Groups';
 import SearchScreen from '../screens/Search';
@@ -18,7 +19,8 @@ import ProfileScreen from '../screens/Profile';
 import LoginScreen from '../screens/Login';
 import RegisterScreen from '../screens/Register';
 
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+
+import { RootStackParamList, RootTabParamList, AuthStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation() {
@@ -35,27 +37,29 @@ export default function Navigation() {
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
+const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator
+    <RootStack.Navigator
       screenOptions={{
         headerShown: false
       }}
     >
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-    </Stack.Navigator>
+      <RootStack.Screen name="Root" component={BottomTabNavigator} />
+      <RootStack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <RootStack.Screen name="BetModal" options={{ presentation: 'modal'  }} component={BetModal} />
+    </RootStack.Navigator>
   );
 }
 
 function AuthNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Auth" component={LoginScreen} options={{ title: 'Login'}} />
-      <Stack.Screen name="Auth" component={RegisterScreen} options={{ title: 'Login'}} />
-    </Stack.Navigator>
+    <AuthStack.Navigator>
+      <AuthStack.Screen name="Auth" component={LoginScreen} options={{ headerShown: false, title: 'Login'}} />
+      <AuthStack.Screen name="Auth" component={RegisterScreen} options={{ headerShown: false, title: 'Register'}} />
+    </AuthStack.Navigator>
   )
 }
 
@@ -71,8 +75,10 @@ function BottomTabNavigator() {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: { 
-          marginLeft: 20, 
-          marginRight: 20, 
+          marginLeft: 40, 
+          marginRight: 40, 
+          marginBottom: 20,
+          zIndex: 20,
           borderRadius: 50, 
           backgroundColor: '#1C2833'
         },
@@ -81,22 +87,22 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="Feed"
         component={FeedScreen}
-        options={{ tabBarIcon: () => <TabBarIcon name="globe"  /> }}
+        options={{ headerShown: false, tabBarIcon: () => <TabBarIcon name="globe"  /> }}
       />
       <BottomTab.Screen
         name="Groups"
         component={GroupsScreen}
-        options={{ tabBarIcon: () => <TabBarIcon name="comment" /> }}
+        options={{ headerShown: false, tabBarIcon: () => <TabBarIcon name="comment" /> }}
       />
       <BottomTab.Screen
         name="Search"
         component={SearchScreen}
-        options={{ tabBarIcon: () => <TabBarIcon name="search" /> }}
+        options={{ headerShown: false, tabBarIcon: () => <TabBarIcon name="search" /> }}
       />
       <BottomTab.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{ tabBarIcon: () => <TabBarIcon name="user" /> }}
+        options={{ headerShown: false, tabBarIcon: () => <TabBarIcon name="user" /> }}
       />
     </BottomTab.Navigator>
   );
